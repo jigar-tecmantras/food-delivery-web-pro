@@ -29,6 +29,9 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 5;
 }
 
 .brand {
@@ -56,12 +59,18 @@ body {
 .app-body {
   flex: 1;
   padding: 2rem;
+  display: flex;
+  justify-content: center;
 }
 
 .form-card,
 .home-surface {
-  max-width: 720px;
-  margin: 0 auto;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0;
+}
+
+.form-card {
   background: #ffffff;
   border-radius: 16px;
   padding: 2rem;
@@ -82,7 +91,8 @@ label {
   gap: 0.5rem;
 }
 
-input {
+input,
+.search-input {
   border: 1px solid #e5e7eb;
   border-radius: 10px;
   padding: 0.75rem 1rem;
@@ -90,7 +100,8 @@ input {
   transition: border 0.2s;
 }
 
-input:focus {
+input:focus,
+.search-input:focus {
   border-color: #6366f1;
   outline: none;
 }
@@ -110,48 +121,323 @@ button.primary:disabled {
   cursor: not-allowed;
 }
 
+button.primary.mini {
+  padding: 0.65rem 1.25rem;
+  border-radius: 12px;
+}
+
 .error {
   color: #dc2626;
   margin-top: 1rem;
 }
 
+.home-surface {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding-bottom: 4rem;
+}
+
 .hero-card {
-  text-align: left;
-  margin-bottom: 2rem;
+  background: linear-gradient(135deg, #fdf2f8, #eef2ff);
+  border-radius: 24px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  box-shadow: 0 30px 60px -40px rgba(99, 102, 241, 0.8);
 }
 
-.hero-card h1 {
-  margin-bottom: 0.25rem;
+.hero-copy h1 {
+  margin: 0;
+  font-size: clamp(2rem, 2.2vw, 2.6rem);
 }
 
-.hero-card .cta-chip {
+.hero-copy p {
+  margin: 0.25rem 0 0.75rem;
+  color: #475467;
+  max-width: 480px;
+}
+
+.hero-overline {
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
+  color: #4338ca;
+  margin: 0;
+}
+
+.cta-chip {
+  display: inline-flex;
+  align-items: center;
   background: #eef2ff;
   color: #4338ca;
-  padding: 0.4rem 0.75rem;
+  padding: 0.35rem 0.9rem;
   border-radius: 999px;
   font-weight: 600;
 }
 
-.grid {
+.hero-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.search-panel {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.filter-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.chip {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 999px;
+  padding: 0.5rem 0.9rem;
+  font-size: 0.9rem;
+  color: #475467;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  min-width: 140px;
+  align-items: flex-start;
+}
+
+.chip.active {
+  border-color: #6366f1;
+  color: #111827;
+  box-shadow: 0 8px 20px rgba(99, 102, 241, 0.25);
+}
+
+.chip small {
+  display: block;
+  color: #6b7280;
+  font-size: 0.75rem;
+  margin-top: 0.25rem;
+}
+
+.promo-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1rem;
+}
+
+.promo-banner {
+  background: #111827;
+  color: #f8fafc;
+  border-radius: 20px;
+  padding: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.promo-tag {
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  margin: 0;
+  color: #a5b4fc;
+}
+
+.promo-banner h3 {
+  margin: 0.35rem 0;
+}
+
+.promo-banner p {
+  margin: 0;
+  color: #e0e7ff;
+}
+
+.promo-cta {
+  background: #f4f4f5;
+  color: #111827;
+  font-weight: 600;
+}
+
+.stat-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+}
+
+.stat-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 1rem 1.25rem;
+}
+
+.stat-card p {
+  margin: 0 0 0.5rem;
+  color: #6b7280;
+  font-size: 0.85rem;
+}
+
+.stat-card strong {
+  font-size: 1.4rem;
+}
+
+.section-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 1rem;
+}
+
+.section-heading h2 {
+  margin: 0;
+}
+
+.section-heading p {
+  margin: 0.35rem 0 0;
+  color: #6b7280;
+}
+
+.section-meta {
+  color: #6b7280;
+  font-size: 0.9rem;
+}
+
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.category-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 1.25rem;
+  border: 1px solid #e5e7eb;
+  min-height: 160px;
+}
+
+.category-icon {
+  font-size: 1.8rem;
+}
+
+.category-card h3 {
+  margin: 0.75rem 0 0.25rem;
+}
+
+.category-card p {
+  margin: 0;
+  color: #6b7280;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 1rem;
 }
 
 .restaurant-card,
 .dish-card {
   border: 1px solid #e5e7eb;
-  border-radius: 14px;
-  padding: 1rem;
-  background: #fff;
+  border-radius: 18px;
+  padding: 1.25rem;
+  background: #ffffff;
+  min-height: 150px;
 }
 
-.restaurant-card span {
+.restaurant-card header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.restaurant-card header h3 {
+  margin: 0;
+}
+
+.restaurant-card header span {
   font-size: 0.9rem;
   color: #6b7280;
 }
 
+.restaurant-card p {
+  margin: 0 0 0.7rem;
+  color: #475467;
+}
+
+.restaurant-meta {
+  display: flex;
+  justify-content: space-between;
+  color: #111827;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.dish-card h3 {
+  margin: 0 0 0.35rem;
+}
+
 .dish-card p {
+  margin: 0;
   color: #6b7280;
   font-weight: 600;
+}
+
+.testimonial-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
+}
+
+.testimonial-card {
+  border-radius: 18px;
+  background: #111827;
+  color: #f8fafc;
+  padding: 1.5rem;
+  min-height: 180px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.testimonial-card footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: #e5e7ff;
+}
+
+.testimonial-card strong {
+  font-size: 1rem;
+}
+
+@media (max-width: 768px) {
+  .app-header {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .home-surface {
+    padding: 0 0.25rem 2rem;
+  }
+
+  .hero-card {
+    padding: 1.5rem;
+  }
+
+  .hero-actions {
+    gap: 0.75rem;
+  }
+
+  .search-panel {
+    flex-direction: column;
+  }
 }
